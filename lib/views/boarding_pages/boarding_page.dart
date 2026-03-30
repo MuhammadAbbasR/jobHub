@@ -3,6 +3,7 @@ import 'package:job_hub/view_models/boarding_notifier.dart';
 import 'package:job_hub/views/boarding_pages/page_one.dart';
 import 'package:job_hub/views/boarding_pages/page_three.dart';
 import 'package:job_hub/views/boarding_pages/page_two.dart';
+import 'package:job_hub/views/main_pages/login_page.dart';
 import 'package:job_hub/views/main_pages/main_page.dart';
 import 'package:job_hub/widgets/reusable_text.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ class BoardingPage extends StatefulWidget {
 }
 
 class _BoardingPageState extends State<BoardingPage> {
-  PageController _pageController = PageController();
+final  PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,7 @@ class _BoardingPageState extends State<BoardingPage> {
                       onTap: vm.isLastPage ?(){
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context)
-                            => MainPage()));
+                            => LoginPage()));
                       }:(){
 
             },
