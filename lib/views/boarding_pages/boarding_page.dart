@@ -17,13 +17,11 @@ class BoardingPage extends StatefulWidget {
 }
 
 class _BoardingPageState extends State<BoardingPage> {
-final  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-
-    final vm=Provider.of<BoardingNotifier>(context);
-
+    final vm = Provider.of<BoardingNotifier>(context);
 
     return Scaffold(
       body: Stack(
@@ -31,60 +29,77 @@ final  PageController _pageController = PageController();
           PageView(
             controller: _pageController,
             onPageChanged: (page) {
-
-
-              Provider.of<BoardingNotifier>(context,listen: false).setFInalPage(page);
-
-
+              Provider.of<BoardingNotifier>(
+                context,
+                listen: false,
+              ).setFInalPage(page);
             },
             physics: AlwaysScrollableScrollPhysics(),
             children: [PageOne(), PageTwo(), PageThree()],
           ),
 
           Positioned(
-              left: 0,
-              right: 0,
-              bottom: MediaQuery.sizeOf(context).height*0.12,
-              child: Center(
-                child: SmoothPageIndicator(
-                controller: _pageController, count: 3,
-                            effect: WormEffect(
-                dotColor: Colors.white,
-                activeDotColor: Colors.red,
-                dotHeight: 12,
-                dotWidth: 12,
-                spacing: 10,
-                            ),
-                          ),
-              )
+            left: 0,
+            right: 0,
+            bottom: MediaQuery.sizeOf(context).height * 0.12,
+            child: Center(
+              child: SmoothPageIndicator(
+                controller: _pageController,
+                count: 3,
+                effect: WormEffect(
+                  dotColor: Colors.white,
+                  activeDotColor: Colors.red,
+                  dotHeight: 12,
+                  dotWidth: 12,
+                  spacing: 10,
+                ),
+              ),
+            ),
           ),
-          
+
           Positioned(
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40.0,horizontal: 20),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 40.0,
+                  horizontal: 20,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
-                vm.isLastPage? SizedBox()   :ReusableText(
-                      text: "Skip",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
+                    vm.isLastPage
+                        ? const SizedBox()
+                        : GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const LoginPage(),
+                                ),
+                              );
+                            },
+                            child: ReusableText(
+                              text: "Skip",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
 
                     GestureDetector(
-                      onTap: vm.isLastPage ?(){
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context)
-                            => LoginPage()));
-                      }:(){
-
-            },
+                      onTap: vm.isLastPage
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginPage(),
+                                ),
+                              );
+                            }
+                          : () {},
                       child: ReusableText(
                         text: "Next",
                         style: TextStyle(
@@ -94,7 +109,6 @@ final  PageController _pageController = PageController();
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
